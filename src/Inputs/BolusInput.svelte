@@ -2,13 +2,24 @@
     import LogoHeader from "../LogoHeader.svelte";
     import PumpLogo from "../Logos/PumpLogo.svelte";
     import Numpad from "../Numpad.svelte";
-
+    import Submit from "../Submit.svelte";
+    
     let value = "";
+
+    $: item = {
+        type: "bolus",
+        time: Date.now(),
+        value: value,
+        downeffect: (Number(value) * 5).toFixed(1),
+    }
+
+    $: canSubmit = /^\d+\.*\d*$/.test(value);
 </script>
 
+<Submit {item} {canSubmit} on:submitted={() => value = ""}>
 <main>
     <LogoHeader caption="Bolus">
-        <PumpLogo/>
+        <PumpLogo thickness="2px"/>
     </LogoHeader>
     <Numpad bind:value maxVal={10}>
         <div slot="unit">
@@ -16,6 +27,7 @@
         </div>
     </Numpad>
 </main>
+</Submit>
     
 <style>
     main {

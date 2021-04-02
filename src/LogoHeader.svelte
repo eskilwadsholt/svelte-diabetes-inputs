@@ -11,7 +11,7 @@
 
 <style>
     h1 {
-        font-size: 1.5em;
+        font-size: 1.4em;
     }
 
     .header {

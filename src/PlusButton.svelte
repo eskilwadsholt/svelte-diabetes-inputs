@@ -1,5 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
+    import { cart } from './Stores/stores';
+
 
     const dispatch = createEventDispatcher();
 
@@ -12,10 +14,10 @@
     export let on:boolean = false;
 
     const plus = `M8 20l24 0M20 8l0 24`;
-    const minus = `M7 20l26 0`;
 
     function toggle() {
         on = !on;
+        $cart = [];
     }
 
 </script>

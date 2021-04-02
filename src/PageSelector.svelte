@@ -1,6 +1,4 @@
 <script lang="ts">
-    import Submit from "./Submit.svelte";
-
     export let pages;
 
     let currentPage = 0;
@@ -67,7 +65,7 @@
     </div>
     {#each pages as page, i}
         <div class="page" style={`left:calc(${(i - currentPage) * 100}% + ${dragX}px)`}>
-            <Submit {page}/>
+            <svelte:component this={page}/>
         </div>
     {/each}
 </main>

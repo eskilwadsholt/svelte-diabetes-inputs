@@ -1,5 +1,11 @@
 <script lang="ts">
-    export let page;
+    import { createEventDispatcher } from "svelte";
+    import { cart } from "./Stores/stores";
+
+    export let item;
+    export let canSubmit = true;
+
+    const dispatch = createEventDispatcher(); 
 
     let startX = 0;
     let startY = 0;
@@ -46,23 +52,23 @@
         vertical = false;
     }
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     $: if (submitting) {
-        console.debug(`Submitting page: ${page}`);
-        sleep(1000).then(() => submitting = false);
+        $cart.push(item);
+        $cart = $cart;
+        setTimeout(() => {
+            submitting = false;
+            dispatch('submitted');
+        }, 1000);
     }
 </script>
 
-<main
-    on:touchstart={e => handleTouchStart(e)}
-    on:touchmove={e => handleTouchMove(e)}
+<submit
+    on:touchstart={e => { if (canSubmit) handleTouchStart(e) }}
+    on:touchmove={e => { if (canSubmit) handleTouchMove(e) }}
     on:touchend={handleTouchEnd}
     >
-    <svelte:component this={page}/>
-    <div class="submit" class:vertical class:submitting>
+    <slot></slot>
+    <div class="overlay" class:vertical class:submitting>
         <div class="submit-header">SUBMIT</div>
         <div class="outer-trace">
             <div class="trace" 
@@ -77,16 +83,16 @@
             </div>
         </div>
     </div>
-</main>
+</submit>
 
 <style>
-    main {
-        position: relative;
+    submit {
+        position: absolute;
         width: 100%;
         height: 100%;
     }
 
-    .submit {
+    .overlay {
         visibility: hidden;
         position: absolute;
         top: 0;
@@ -98,7 +104,7 @@
         justify-content: center;
     }
 
-    .submit.vertical, .submit.submitting {
+    .overlay.vertical, .overlay.submitting {
         visibility: visible;
     }
 

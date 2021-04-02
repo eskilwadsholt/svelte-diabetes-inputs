@@ -9,7 +9,7 @@
 	import PumpLogo from "./Logos/PumpLogo.svelte";
 	import MealLogo from "./Logos/MealLogo.svelte";
 	import NotesLogo from "./Logos/NotesLogo.svelte";
-	import Submit from "./Submit.svelte";
+	import Cart from "./Cart/Cart.svelte";
 
 	let menuOpen:boolean = true;
 	let toolActive = -1;
@@ -22,14 +22,15 @@
 <main>
 	<div class="top">
 		{#if toolActive == 1}
-			<Submit page={BgInput}/>
+			<BgInput/>
 		{:else if toolActive == 2}
 			<InsulinInputs/>
 		{:else if toolActive == 3}
 			<FoodInputs/>
 		{:else if toolActive == 4}
-			<Submit page={NoteInput}/>
+			<NoteInput/>
 		{/if}
+		<Cart/>
 	</div>
 	<div class="bottom">
 		<div class="menu-folder" class:menuOpen>

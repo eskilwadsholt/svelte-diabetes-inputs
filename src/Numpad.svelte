@@ -5,7 +5,8 @@
     export let point = ".";
     export let decimals = 1;
     export let maxVal = 30;
-    value = "–";
+    
+    $: if (value == "") { value = "–"; input = ""; }
 
     function KeyInput(e, keyVal:string):void {
         e.preventDefault();

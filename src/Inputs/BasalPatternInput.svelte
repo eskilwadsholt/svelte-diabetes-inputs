@@ -5,7 +5,7 @@
 
 <main>
     <LogoHeader caption="Basal Pattern">
-        <PumpLogo/>
+        <PumpLogo thickness="2px"/>
     </LogoHeader>
 </main>
 
