@@ -4,7 +4,7 @@
 </script>
     
 <main>
-    <LogoHeader caption="Food Database">
+    <LogoHeader caption="Food<br>Database">
         <MealLogo/>
     </LogoHeader>
 </main>

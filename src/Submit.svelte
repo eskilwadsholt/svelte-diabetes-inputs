@@ -35,7 +35,9 @@
         const dy = touch.pageY - startY;
 
         if (!horizontal && !vertical && dx**2 + dy**2 > 100) {
-            if (Math.abs(dy) > 3 * Math.abs(dx)) vertical = true;
+            // Only activate submit when swiping up
+
+            if (-dy > 3 * Math.abs(dx)) vertical = true;
             if (Math.abs(dx) > 3 * Math.abs(dy)) horizontal = true;
         }
         

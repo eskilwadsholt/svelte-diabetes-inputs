@@ -3,6 +3,7 @@
     import PumpLogo from "../Logos/PumpLogo.svelte";
     import Numpad from "../Numpad.svelte";
     import Submit from "../Submit.svelte";
+    import { insulinRatio } from "../data/data";
     
     let value = "";
 
@@ -10,7 +11,7 @@
         type: "bolus",
         time: Date.now(),
         value: value,
-        downeffect: (Number(value) * 5).toFixed(1),
+        downeffect: (Number(value) * insulinRatio).toFixed(1),
     }
 
     $: canSubmit = /^\d+\.*\d*$/.test(value);
@@ -18,7 +19,7 @@
 
 <Submit {item} {canSubmit} on:submitted={() => value = ""}>
 <main>
-    <LogoHeader caption="Bolus">
+    <LogoHeader caption="Insulin">
         <PumpLogo thickness="2px"/>
     </LogoHeader>
     <Numpad bind:value maxVal={10}>

@@ -19,7 +19,7 @@
 
 <Submit {item} {canSubmit} on:submitted={() => rate = ""}>
 <main>
-    <LogoHeader caption="Temp Basal">
+    <LogoHeader caption="Temp<br>Background">
         <PumpLogo thickness="2px"/>
     </LogoHeader>
     <Numpad bind:value={rate} maxVal={5} decimals={3}>

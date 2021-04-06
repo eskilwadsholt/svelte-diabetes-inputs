@@ -6,12 +6,13 @@
     <div class="logo">
         <slot></slot>
     </div>
-    <h1>{caption}</h1>
+    <h1>{@html caption}</h1>
 </div>
 
 <style>
     h1 {
-        font-size: 1.4em;
+        font-size: 1.3em;
+        text-align: center;
     }
 
     .header {

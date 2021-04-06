@@ -4,7 +4,7 @@
 </script>
 
 <main>
-    <LogoHeader caption="Basal Pattern">
+    <LogoHeader caption="Background<br>Pattern">
         <PumpLogo thickness="2px"/>
     </LogoHeader>
 </main>

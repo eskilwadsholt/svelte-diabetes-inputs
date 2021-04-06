@@ -3,6 +3,8 @@
 	--pump-logo: #7AF;
 	--submit-btn: #382;
 	--meal-logo: sandybrown;
+	--food-card: sandybrown;
+	--food-card-light: rgb(255, 194, 146);
 	--notes-logo: #555;
 }
 
@@ -12,9 +14,12 @@
 
 html, body {
 	position: fixed;
+	display: flex;
+	justify-content: center;
 	width: 100%;
 	height: 100%;
 	margin: 0;
+	background: #222;
 }
 
 body {

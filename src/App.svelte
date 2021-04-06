@@ -80,7 +80,7 @@
 	}
 
 	.top {
-		position: fixed;
+		position: absolute;
 		width: 100%;
 		top: 0;
 		height: calc(100% - 80px);
@@ -91,26 +91,24 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		position: fixed;
+		position: absolute;
 		width: 100%;
 		height: 80px;
 		bottom: 0;
 		background: #555;
+		z-index: 1;
 	}
 
 	main {
+		position: relative;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 100%;
-		height: 100%;
+		width: 375px;
+		height: 545px;
 		background: #666;
 		color: #FFF;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+		box-shadow: 0 0 5px #FFF;
+		overflow: hidden;
 	}
 </style>

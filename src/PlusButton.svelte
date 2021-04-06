@@ -13,8 +13,6 @@
 
     export let on:boolean = false;
 
-    const plus = `M8 20l24 0M20 8l0 24`;
-
     function toggle() {
         on = !on;
         $cart = [];
@@ -28,7 +26,7 @@
         <path
             stroke="white"
             stroke-width="6px"
-            d = {plus}
+            d="M8 20l24 0M20 8l0 24"
         ></path>
     </svg>
 </div>

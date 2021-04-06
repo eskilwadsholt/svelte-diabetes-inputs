@@ -3,7 +3,7 @@
     import MealLogo from '../Logos/MealLogo.svelte';
     import NotesLogo from '../Logos/NotesLogo.svelte';
     import PumpLogo from '../Logos/PumpLogo.svelte';
-    import { cart, currentItem } from '../Stores/stores';
+    import { cart } from '../Stores/stores';
 
     $: console.debug($cart);
 
@@ -14,6 +14,7 @@
 
 {#if $cart.length > 0}
 <div class="cart" class:folded on:click={() => folded = !folded}>
+    <div class="extra-space"></div>
     {#each $cart as item}
         <div class="item">
             <div class="primary">
@@ -61,10 +62,14 @@
             </div>
         </div>
     {/each}
+    <div class="extra-space"></div>
 </div>
 {/if}
 
 <style>
+    * {
+        transition: 400ms;
+    }
     .primary, .secondary {
         display: flex;
         align-items: center;
@@ -77,11 +82,24 @@
         background: #555;
         padding: 5px;
         border-radius: 0 0 0 5px;
-        transition: 400ms;
+        box-shadow: 0 0 10px #FFF8;
     }
 
     .cart.folded {
-        transform: translate(calc(100% - 33px));
+        transform: translate(calc(100% - 28px));
+        padding: 2px;
+    }
+
+    .cart.folded > .item {
+        height: 10px;
+    }
+
+    .extra-space {
+        height: 0;
+    }
+
+    .cart.folded > .extra-space {
+        height: 8px;
     }
 
     .item {

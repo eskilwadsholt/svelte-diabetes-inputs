@@ -1,4 +1,4 @@
-[
+export const foods = [
   {
     "food" : "Boghvedepandekager",
     "category" : "Brød",
@@ -1758,7 +1758,7 @@
     "cals" : "37.0"
   },
   {
-    "food" : "innocent smoothie jordbær",
+    "food" : "Innocent-smoothie jordbær",
     "category" : "Saft",
     "carbs" : "12.0",
     "cals" : "52.0"
@@ -1872,7 +1872,7 @@
     "cals" : "321.0"
   },
   {
-    "food" : "choko cookie coop",
+    "food" : "Choko Cookie, coop",
     "category" : "Slik",
     "carbs" : "42.0",
     "cals" : "498.0"
@@ -1896,7 +1896,7 @@
     "cals" : "584.0"
   },
   {
-    "food" : "Chokomandler, rema 1000",
+    "food" : "Chokomandler, Rema 1000",
     "category" : "Slik",
     "carbs" : "27.0",
     "cals" : "596.0"
@@ -2010,7 +2010,7 @@
     "cals" : "380.0"
   },
   {
-    "food" : "hapser fudge lakrids",
+    "food" : "Hapser fudge lakrids",
     "category" : "Slik",
     "carbs" : "56.0",
     "cals" : "440.0"
@@ -2118,7 +2118,7 @@
     "cals" : "380.0"
   },
   {
-    "food" : "lakrids havsalt, Rema 1000",
+    "food" : "Lakrids havsalt, Rema 1000",
     "category" : "Slik",
     "carbs" : "43.0",
     "cals" : "185.0"
@@ -2448,7 +2448,7 @@
     "cals" : "236.0"
   },
   {
-    "food" : "cæsardressing, Rema 1000",
+    "food" : "Cæsardressing, Rema 1000",
     "category" : "Ukendt",
     "carbs" : "5.7",
     "cals" : "241.0"
@@ -2578,30 +2578,6 @@
     "category" : "Ukendt",
     "carbs" : "48.0",
     "cals" : "453.0"
-  },
-  {
-    "food" : "Kulhydrat normal",
-    "category" : "Ukendt",
-    "carbs" : "100.0",
-    "cals" : "0.0"
-  },
-  {
-    "food" : "Kulhydrat15",
-    "category" : "Ukendt",
-    "carbs" : "100.0",
-    "cals" : "0.0"
-  },
-  {
-    "food" : "Kulhydrat20",
-    "category" : "Ukendt",
-    "carbs" : "100.0",
-    "cals" : "0.0"
-  },
-  {
-    "food" : "Kulhydrat40",
-    "category" : "Ukendt",
-    "carbs" : "100.0",
-    "cals" : "0.0"
   },
   {
     "food" : "Kyllingefrikadeller, Tulip",
