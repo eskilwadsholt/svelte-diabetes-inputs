@@ -3,9 +3,12 @@
 	--pump-logo: #7AF;
 	--submit-btn: #382;
 	--meal-logo: sandybrown;
-	--food-card: sandybrown;
-	--food-card-light: rgb(255, 194, 146);
+	--food-card: #444;
+	--food-card-light: #666;
 	--notes-logo: #555;
+	--uparrow: #8F88;
+	--dark-uparrow: #282;
+	--downarrow: #F888;
 }
 
 * {

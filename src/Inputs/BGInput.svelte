@@ -2,6 +2,7 @@
     import Fraction from "../Fraction.svelte";
     import LogoHeader from "../LogoHeader.svelte";
     import BGlogo from "../Logos/BGlogo.svelte";
+    import NumberField from "../NumberField.svelte";
     import Numpad from "../Numpad.svelte";
     import Submit from "../Submit.svelte";
 
@@ -22,9 +23,11 @@
             <BGlogo thickness="2px"/>
         </LogoHeader>
         <Numpad bind:value>
-            <div slot="unit">
-                <Fraction numerator="mmol" denominator="L"/>
-            </div>
+            <NumberField {value}>
+                <div slot="unit">
+                    <Fraction numerator="mmol" denominator="L"/>
+                </div>
+            </NumberField>
         </Numpad>
     </main>
 </Submit>

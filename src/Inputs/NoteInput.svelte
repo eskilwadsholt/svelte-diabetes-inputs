@@ -2,21 +2,32 @@
     import LogoHeader from "../LogoHeader.svelte";
     import NotesLogo from "../Logos/NotesLogo.svelte";
     import Submit from "../Submit.svelte";
+    import { swipeable } from "../events";
 
     $: item = {
         type: "note",
         time: Date.now(),
         value: "note",
     }
+
+    const swipeOptions = {
+        start: 20,
+        target: {
+            up: 200,
+            down: 300,
+            left: 150,
+            right: 350,
+        },
+        ratio: 3,
+        clamp: true,
+    }
 </script>
 
-<Submit {item}>
-<main>
+<main use:swipeable={swipeOptions}>
     <LogoHeader caption="Notes">
         <NotesLogo background="#444" thickness={"2px"}/>
     </LogoHeader>
 </main>
-</Submit>
 
 <style>
     main {

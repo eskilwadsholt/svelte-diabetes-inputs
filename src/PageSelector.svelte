@@ -75,6 +75,7 @@
         position: relative;
         width: 100%;
         height: 100%;
+        overflow: hidden;
     }
 
     .page {
@@ -89,7 +90,7 @@
     }
 
     .progress-bar {
-        position: fixed;
+        position: absolute;
         left: 50%;
         display: flex;
         height: 20px;

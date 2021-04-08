@@ -3,6 +3,7 @@
     import MealLogo from '../Logos/MealLogo.svelte';
     import NotesLogo from '../Logos/NotesLogo.svelte';
     import PumpLogo from '../Logos/PumpLogo.svelte';
+    import UpArrow from '../Logos/UpArrow.svelte';
     import { cart } from '../Stores/stores';
 
     $: console.debug($cart);
@@ -38,11 +39,9 @@
                     <div class="upeffect">
                         {item.upeffect}
                     </div>
-                    <svg width="0.35em" height="0.7em" viewBox="0 0 40 80">
-                        <path class="uparrow"
-                            d="M20 5l0 75M20 5l-20 20M20 5l20 20"
-                        ></path>
-                    </svg>
+                    <div class="uparrow">
+                        <UpArrow/>
+                    </div>
                 {/if}
                 {#if item.downeffect}    
                     <div class="downeffect">
@@ -86,7 +85,7 @@
     }
 
     .cart.folded {
-        transform: translate(calc(100% - 28px));
+        transform: translate(calc(100% - 30px));
         padding: 2px;
     }
 
@@ -99,7 +98,7 @@
     }
 
     .cart.folded > .extra-space {
-        height: 8px;
+        height: 7px;
     }
 
     .item {
@@ -124,16 +123,18 @@
         color: #8888;
     }
 
-    .upeffect, .uparrow {
-        color: #8F88;
-        stroke: #8F88;
-        stroke-width: 10px;
-        fill: none;
+    .upeffect {
+        color: var(--uparrow);
+    }
+
+    .uparrow {
+        width: 0.55em;
+        height: 0.7em;
     }
 
     .downeffect, .downarrow {
-        color: #F888;
-        stroke: #F888;
+        color: var(--downarrow);
+        stroke: var(--downarrow);
         stroke-width: 10px;
         fill: none;
     }

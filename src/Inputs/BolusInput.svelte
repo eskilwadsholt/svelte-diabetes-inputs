@@ -4,6 +4,7 @@
     import Numpad from "../Numpad.svelte";
     import Submit from "../Submit.svelte";
     import { insulinRatio } from "../data/data";
+    import NumberField from "../NumberField.svelte";
     
     let value = "";
 
@@ -23,9 +24,11 @@
         <PumpLogo thickness="2px"/>
     </LogoHeader>
     <Numpad bind:value maxVal={10}>
-        <div slot="unit">
-            {value == "1" ? "unit" : "units"}
-        </div>
+        <NumberField {value} maxVal={10}>
+            <div slot="unit">
+                {value == "1" ? "unit" : "units"}
+            </div>
+        </NumberField>
     </Numpad>
 </main>
 </Submit>

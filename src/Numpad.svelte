@@ -1,10 +1,12 @@
 <script lang="ts">
     export let value;
-    let keys = "1,2,3,4,5,6,7,8,9,C,0,&#8592".split(',');
-    let input = "";
     export let point = ".";
     export let decimals = 1;
     export let maxVal = 30;
+
+    let keys = "1,2,3,4,5,6,7,8,9,C,0,&#8592".split(',');
+    let input = "";
+    value = "–";
     
     $: if (value == "") { value = "–"; input = ""; }
 
@@ -32,20 +34,11 @@
 
         console.debug("Value: " + Number(value) + "\t" + "Input: " + input);
     }
-
 </script>
 
 <main>
-    <div class="number-field">
-        <div class="range-tip">
-            {(0).toFixed(decimals) + " – " + maxVal.toFixed(decimals)}
-        </div>
-        <div class="number">
-            <div class="value">{value}</div>
-            <div class="unit">
-                <slot name="unit"></slot>
-            </div>
-        </div>
+    <div>
+        <slot></slot>
     </div>
     <div class="numpad noselect">
         {#each keys as key}
@@ -55,29 +48,11 @@
 </main>
 
 <style>
-    .range-tip {
-        font-size: 1em;
-        color: #FFFA;
-        margin: 3px;
-    }
-
-    .number-field {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .number {
-        display: flex;
-        align-items: center;
-        border-radius: 20px;
-        background: #FFFA;
-        padding: 0 10px 0 10px;
-    }
-
     .numpad {
+        position: relative;
         display: flex;
-        width: 260px;
+        height: 45vmin;
+        width: 60vmin;
         flex-wrap: wrap;
         margin-bottom: 15px;
     }
@@ -86,8 +61,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 50px;
-        width: 80px;
+        height: calc(25% - 6px);
+        width: calc(33.3% - 6px);
         margin: 3px;
         border-radius: 10px;
         background: #FFF8;
@@ -110,10 +85,5 @@
         width: 100%;
         height: 100%;
         color: black;
-    }
-
-    .value {
-        font-size: 3em;
-        margin-right: 5px;
     }
 </style>
