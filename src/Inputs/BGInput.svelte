@@ -4,33 +4,47 @@
     import BGlogo from "../Logos/BGlogo.svelte";
     import NumberField from "../NumberField.svelte";
     import Numpad from "../Numpad.svelte";
-    import Submit from "../Submit.svelte";
+    import { latest, formatTime } from "../Stores/stores";
 
     let value = "";
 
-    $: item = {
-        type: "BG",
-        time: Date.now(),
-        value: value,
+    const getItem = () => {
+        const time = new Date();
+        const display = formatTime(time);
+        return {
+            type: "BG",
+            time,
+            display,
+            value,
+        }
     }
 
-    $: canSubmit = /^\d+\.*\d*$/.test(value);
+    $: $latest.canSubmit = /^\d+\.*\d*$/.test(value);
+
+    $latest.submit = () => {
+        $latest.BG = getItem();
+        value = "";
+    }
+
+    $: { 
+        console.debug("Last BG:");
+        console.debug($latest.BG);
+    }
 </script>
 
-<Submit {item} {canSubmit} on:submitted={() => value = ""}>
-    <main>
-        <LogoHeader caption="Blood Sugar">
-            <BGlogo thickness="2px"/>
-        </LogoHeader>
-        <Numpad bind:value>
-            <NumberField {value}>
-                <div slot="unit">
-                    <Fraction numerator="mmol" denominator="L"/>
-                </div>
-            </NumberField>
-        </Numpad>
-    </main>
-</Submit>
+
+<main>
+    <LogoHeader caption="Blood<br>Sugar">
+        <BGlogo thickness="2px"/>
+    </LogoHeader>
+    <Numpad bind:value>
+        <NumberField {value}>
+            <div slot="unit">
+                <Fraction numerator="mmol" denominator="L"/>
+            </div>
+        </NumberField>
+    </Numpad>
+</main>
 
 <style>
     main {

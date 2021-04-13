@@ -129,7 +129,7 @@
         top: 0;
         width: 100%;
         border-radius: 35px;
-        background: var(--submit-btn);
+        background: var(--submit);
     }
 
     .arrow {
@@ -139,11 +139,11 @@
         height: 70px;
         border-radius: 35px;
         background: white;
-        border: 4px solid var(--submit-btn);
+        border: 4px solid var(--submit);
     }
 
     path {
-        stroke: var(--submit-btn);
+        stroke: var(--submit);
         stroke-width: 8px;
         stroke-linecap: round;
 		stroke-linejoin: round;

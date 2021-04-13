@@ -1,11 +1,11 @@
 <script lang="ts">
     import { carbRatio } from "../data/data";
     import FoodCard from "./FoodCard.svelte";
-    import Submit from "../Submit.svelte";
     import FoodSearch from "./FoodSearch.svelte";
     import MealSummary from "./MealSummary.svelte";
     import PageSelector from "../PageSelector.svelte";
     import Numpad from "../Numpad.svelte";
+    import { latest, formatTime } from "../Stores/stores";
 
     let canSubmit = false;
 
@@ -66,13 +66,29 @@
             cals: f.calsTotal,
         };
     }
+
+    $: if (addFood == false && foodList.length > 0) canSubmit = true;
+
+    $: $latest.canSubmit = addFood == false && foodList.length > 0;
+
+    $latest.submit = () => {
+        const mealStats = getStats();
+        $latest.meals.list.push({
+            foodList,
+            mealStats,
+        })
+
+        if (!$latest.meals.total) {
+            $latest.meals.total = 0;
+        }
+
+        $latest.meals.total += mealStats.effect;
+
+        foodList = [];
+    }
 </script>
 
-<Submit {item} {canSubmit} on:submitted={() => console.debug("submitted callback not implemented")}>
 <main>
-    <!--LogoHeader caption="Meal">
-        <MealLogo thickness="2px"/>
-    </LogoHeader-->
     <div class="space"></div>
     {#if addFood}
         <FoodSearch bind:food={food} on:close={() => { addFood = false; }}/>
@@ -93,21 +109,8 @@
     <div class="numpads">
         <PageSelector pages={Array(foodList.length).fill(Numpad)}/>
     </div>
-    <!--div class="plus-food" on:click={activateSearch}>
-        <svg viewBox="-5 -4 50 50">
-            <path
-                stroke="white"
-                stroke-width="6px"
-                d="M8 20l24 0M20 8l0 24"
-            ></path>
-        </svg>
-        <div class="add-food">
-            Add Food ...
-        </div>
-    </div-->
     {/if}
 </main>
-</Submit>
     
 <style>
     .space {
@@ -116,7 +119,7 @@
 
     .numpads {
         position: relative;
-        width: 100%;
+        width: 70%;
         height: 35%;
         background: #0001;
         flex-grow: 1;
@@ -129,36 +132,6 @@
         padding: 5px;
         font-size: 1.3em;
     }
-
-    .add-food {
-        flex-shrink: 0;
-        margin: 5px;
-    }
-    .plus-food {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        height: 40px;
-        width: 160px;
-        border-radius: 20px;
-        font-size: 1.2em;
-        color: white;
-        background: var(--meal-logo);
-    }
-
-    svg {
-        width: 40px;
-        height: 40px;
-        background: #0004;
-        border-radius: 20px;
-    }
-
-    path {
-		stroke-linecap: round;
-		stroke-linejoin: round;
-		fill: none;
-	}
 
     main {
         display: flex;

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import { cart } from './Stores/stores';
+    import { cart, latest } from './Stores/stores';
 
 
     const dispatch = createEventDispatcher();
@@ -16,6 +16,7 @@
     function toggle() {
         on = !on;
         $cart = [];
+        $latest.reset();
     }
 
 </script>

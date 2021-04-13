@@ -9,18 +9,52 @@
     }
 
     export let highlight = false;
+    export let latest = false;
 </script>
 
 <div class="wrapper" on:click|stopPropagation={e => handleClick(e)}>
-    <slot></slot>
+    <div class="logo">
+        <slot name="logo"/>
+    </div>
     <div class="mark" class:highlight></div>
     <div class="circle" class:highlight></div>
+    {#if latest}
+    <div class="latest">
+        <slot name="latest"/>
+    </div>
+    {/if}
 </div>
 
 <style>
     * {
         transition: 200ms cubic-bezier(0.3, 1, 0.6, 1.2);
     }
+
+    .logo {
+		width: 55px;
+		height: 55px;
+		border-radius: 50%;
+        position: absolute;
+        top: -5px;
+        transform: translate(-50%, -50%);
+	}
+
+    .latest {
+		position: absolute;
+		z-index: 10;
+		left: 0;
+		top: 17px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 999px;
+        padding: 0 7px;
+        border: 2px solid white;
+		background: #000;
+		color: white;
+		font-size: 0.9em;
+        transform: translate(-50%);
+	}
 
     .wrapper {
         position: relative;
@@ -43,6 +77,7 @@
 
     .circle {
         position: absolute;
+        top: -5px;
         width: 0px;
         height: 0px;
         z-index: -1;
@@ -52,7 +87,7 @@
     }
 
     .circle.highlight {
-        width: 73px;
-        height: 73px;
+        width: 67px;
+        height: 67px;
     }
 </style>

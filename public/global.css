@@ -1,14 +1,15 @@
 :root {
 	--bg-logo: #F33;
 	--pump-logo: #7AF;
-	--submit-btn: #382;
+	--submit: #382;
 	--meal-logo: sandybrown;
 	--food-card: #444;
 	--food-card-light: #666;
 	--notes-logo: #555;
-	--uparrow: #8F88;
+	--uparrow: #3A3;
 	--dark-uparrow: #282;
-	--downarrow: #F888;
+	--downarrow: #F33;
+	--overlay: #AAAB;
 }
 
 * {

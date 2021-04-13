@@ -1,7 +1,6 @@
 <script lang="ts">
     import LogoHeader from "../LogoHeader.svelte";
     import NotesLogo from "../Logos/NotesLogo.svelte";
-    import Submit from "../Submit.svelte";
     import { swipeable } from "../events";
 
     $: item = {
@@ -11,7 +10,7 @@
     }
 
     const swipeOptions = {
-        start: 20,
+        minSwipe: 20,
         target: {
             up: 200,
             down: 300,
@@ -19,7 +18,6 @@
             right: 350,
         },
         ratio: 3,
-        clamp: true,
     }
 </script>
 

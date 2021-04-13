@@ -10,6 +10,22 @@
 	import MealLogo from "./Logos/MealLogo.svelte";
 	import NotesLogo from "./Logos/NotesLogo.svelte";
 	import Cart from "./Cart/Cart.svelte";
+	import { swipeable } from "./events";
+	import { latest } from "./Stores/stores";
+import Latest from "./Latest.svelte";
+import DownArrow from "./Logos/DownArrow.svelte";
+import UpArrow from "./Logos/UpArrow.svelte";
+
+	const swipeOptions = {
+        minSwipe: 10,
+        target: {
+            up: 120,
+            down: 300,
+            left: 150,
+            right: 350,
+        },
+        ratio: 3,
+    }
 
 	let menuOpen:boolean = true;
 	let toolActive = -1;
@@ -32,19 +48,35 @@
 		{/if}
 		<Cart/>
 	</div>
-	<div class="bottom">
+	<div class="bottom" use:swipeable={swipeOptions} on:swipeUp on:swipeEnd>
 		<div class="menu-folder" class:menuOpen>
 			<ToolButton on:clicked={() => SelectTool(4)} highlight={toolActive == 4}>
-				<div class="logo"><NotesLogo/></div>
+				<div slot="logo" class="logo"><NotesLogo/></div>
 			</ToolButton>
-			<ToolButton on:clicked={() => SelectTool(3)} highlight={toolActive == 3}>
-				<div class="logo"><MealLogo/></div>
+			<ToolButton on:clicked={() => SelectTool(3)} highlight={toolActive == 3}
+				latest={$latest.meals.total}>
+				<div slot="logo" class="logo"><MealLogo/></div>
+				<div slot="latest">
+					{$latest.meals.total ? $latest.meals.total.toFixed(1) : ""}
+					<div class="arrow-size">
+						<UpArrow/>
+					</div>
+				</div>
 			</ToolButton>
-			<ToolButton on:clicked={() => SelectTool(1)} highlight={toolActive == 1}>
-				<div class="logo"><BGlogo/></div>
+			<ToolButton on:clicked={() => SelectTool(1)} highlight={toolActive == 1}
+				latest={$latest.BG}>
+				<div slot="logo" class="logo"><BGlogo/></div>
+				<div slot="latest">{$latest.BG ? $latest.BG.value : ""}</div>
 			</ToolButton>
-			<ToolButton on:clicked={() => SelectTool(2)} highlight={toolActive == 2}>
-				<div class="logo"><PumpLogo/></div>
+			<ToolButton on:clicked={() => SelectTool(2)} highlight={toolActive == 2}
+				latest={$latest.bolus.total}>
+				<div slot="logo" class="logo"><PumpLogo/></div>
+				<div slot="latest">
+					{$latest.bolus.total ? $latest.bolus.total.toFixed(1) : ""}
+					<div class="arrow-size">
+						<DownArrow/>
+					</div>
+				</div>
 			</ToolButton>
 			<PlusButton on:clicked={() => SelectTool(-1)} bind:on={menuOpen}/>
 		</div>
@@ -57,12 +89,15 @@
 		font-family: "Quicksand", sans-serif;
 	}
 
-	.logo {
-		width: 65px;
-		height: 65px;
-		border-radius: 50%;
-        position: absolute;
-        transform: translate(-50%, -50%);
+	div[slot="latest"] {
+		display:flex;
+		align-items:center;
+		width:fit-content;
+	}
+	
+	.arrow-size {
+		width:8px;
+		padding-left:2px;
 	}
 
 	.menu-folder {

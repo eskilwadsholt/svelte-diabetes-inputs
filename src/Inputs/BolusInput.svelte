@@ -2,23 +2,42 @@
     import LogoHeader from "../LogoHeader.svelte";
     import PumpLogo from "../Logos/PumpLogo.svelte";
     import Numpad from "../Numpad.svelte";
-    import Submit from "../Submit.svelte";
     import { insulinRatio } from "../data/data";
     import NumberField from "../NumberField.svelte";
+    import { latest, formatTime } from "../Stores/stores";
     
     let value = "";
 
-    $: item = {
-        type: "bolus",
-        time: Date.now(),
-        value: value,
-        downeffect: (Number(value) * insulinRatio).toFixed(1),
+    const getItem = () => {
+        const time = new Date();
+        const display = formatTime(time);
+        return {
+            type: "bolus",
+            time,
+            display,
+            value,
+            downeffect: (Number(value) * insulinRatio).toFixed(1),
+        }
     }
 
-    $: canSubmit = /^\d+\.*\d*$/.test(value);
+    $: $latest.canSubmit = /^\d+\.*\d*$/.test(value);
+
+    $latest.submit = () => {
+        const item = getItem();
+        $latest.bolus.list.push(item);
+        if (!$latest.bolus.total) { 
+            $latest.bolus.total = 0;
+        }
+        $latest.bolus.total += Number(item.downeffect);
+        value = "";
+    }
+
+    $: { 
+        console.debug("Lasest boluses:");
+        console.debug($latest.bolus.list);
+    }
 </script>
 
-<Submit {item} {canSubmit} on:submitted={() => value = ""}>
 <main>
     <LogoHeader caption="Insulin">
         <PumpLogo thickness="2px"/>
@@ -31,7 +50,6 @@
         </NumberField>
     </Numpad>
 </main>
-</Submit>
     
 <style>
     main {

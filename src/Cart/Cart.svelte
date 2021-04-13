@@ -6,8 +6,6 @@
     import UpArrow from '../Logos/UpArrow.svelte';
     import { cart } from '../Stores/stores';
 
-    $: console.debug($cart);
-
     let folded = true;
 
     $: if ($cart.length > 0) folded = false;

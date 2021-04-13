@@ -10,8 +10,7 @@
     
     $: if (value == "") { value = "–"; input = ""; }
 
-    function KeyInput(e, keyVal:string):void {
-        e.preventDefault();
+    function KeyInput(keyVal:string):void {
         let acceptNumber = Number(input + keyVal) <= 10**decimals * maxVal;
         if (input.length == 0) acceptNumber = Number(keyVal) <= maxVal;
         console.debug(Number(input + keyVal) + `\t${acceptNumber}`);
@@ -42,7 +41,7 @@
     </div>
     <div class="numpad noselect">
         {#each keys as key}
-            <div class="key" on:click|stopPropagation={(e) => KeyInput(e, key)}>{@html key}</div>
+            <div class="key" on:click|stopPropagation|preventDefault={() => KeyInput(key)}>{@html key}</div>
         {/each}
     </div>
 </main>
@@ -51,8 +50,8 @@
     .numpad {
         position: relative;
         display: flex;
-        height: 45vmin;
-        width: 60vmin;
+        height: 160px;
+        width: 230px;
         flex-wrap: wrap;
         margin-bottom: 15px;
     }
