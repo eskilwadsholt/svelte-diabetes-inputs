@@ -35,7 +35,6 @@
 		height: 55px;
 		border-radius: 50%;
         position: absolute;
-        top: -5px;
         transform: translate(-50%, -50%);
 	}
 
@@ -43,7 +42,7 @@
 		position: absolute;
 		z-index: 10;
 		left: 0;
-		top: 17px;
+		top: 22px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -71,13 +70,12 @@
     }
 
     .mark.highlight {
-        top: -55px;
+        top: -51px;
         transform: translate(-50%) scale(1);
     }
 
     .circle {
         position: absolute;
-        top: -5px;
         width: 0px;
         height: 0px;
         z-index: -1;

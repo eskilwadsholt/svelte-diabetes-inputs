@@ -16,7 +16,7 @@
             time,
             display,
             value,
-            downeffect: (Number(value) * insulinRatio).toFixed(1),
+            downeffect: (Number(value) * insulinRatio),
         }
     }
 
@@ -42,12 +42,12 @@
     <LogoHeader caption="Insulin">
         <PumpLogo thickness="2px"/>
     </LogoHeader>
+    <NumberField {value} maxVal={10}>
+        <div slot="unit">
+            {value == "1" ? "unit" : "units"}
+        </div>
+    </NumberField>
     <Numpad bind:value maxVal={10}>
-        <NumberField {value} maxVal={10}>
-            <div slot="unit">
-                {value == "1" ? "unit" : "units"}
-            </div>
-        </NumberField>
     </Numpad>
 </main>
     

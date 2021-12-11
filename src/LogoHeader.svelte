@@ -17,11 +17,12 @@
 
     .header {
         position: relative;
+        margin-top: 20px;
     }
 
     .logo {
-        width: 35px;
-        height: 35px;
+        width: 45px;
+        height: 45px;
         position: absolute;
         left: -10px;
         top: 50%;

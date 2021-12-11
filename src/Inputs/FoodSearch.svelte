@@ -1,9 +1,11 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import { carbRatio } from "../data/data";
     import { foods } from "../data/food-suggestions";
-    import FoodCard from "./FoodCard.svelte";
+    import FoodSearchCard from "./FoodSearchCard.svelte";
     import { createEventDispatcher } from "svelte";
+    import FoodList from "./FoodList.svelte";
+    import { searches } from "../Stores/stores";
+    import { onMount } from 'svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -11,41 +13,94 @@
         e.preventDefault();
         dispatch('close');
     }
-    
 
-    let search = "";
     let field;
 
-    export let food;
+    onMount(() => {
+        field.focus();
+    });
+    
+    let search = "";
+    let filteredFoods = [];
+    let show = 10;
+    let placeholder="Search food ...";
 
-    onMount(() => { field.focus(); });
+    $: if (search) {
+        let base = search[0];
 
-    function chooseFood(f) {
-        food = f;
-    }
+        if (!searches[base]) {
+            console.debug(`Creating search "${base}"`);
+            const start = performance.now();
+            searches[base] = foods.filter(x => hasPhrase(x.food, base));
+            console.debug(`Filtering took ${performance.now() - start} ms`);
+            console.debug(searches[base].length);
+        }
 
-    $: filteredFoods = search ? foods.filter(matchSearch) : [];
+        let key = '';
+        let partialFilter;
 
-    function matchSearch(x) {
-        return x.food.toLowerCase().includes(search.toLowerCase());
+        search.split('').forEach(x => {
+            key += x;
+
+            if (!searches[key]) {
+                console.debug(`Creating search "${key}"`);
+                const start = performance.now();
+                searches[key] = partialFilter.filter(x => hasPhrase(x.food, key));
+                console.debug(`Filtering took ${performance.now() - start} ms`);
+                console.debug(searches[key].length);
+            }
+            
+            partialFilter = searches[key];
+        });
+
+        filteredFoods = partialFilter;
+
+        show = 10;
+        foodList.scrollTop = 0;
+    } else filteredFoods = [];
+
+    function hasPhrase(text: string, phrase: string) {
+        return text.toLowerCase().includes(phrase.toLowerCase());
     }
 
     function computeEffect(f) {
         return Number(f.carbs) * carbRatio;
     }
+
+    console.debug(`${foods.length} food items.`);
+
+    let foodList, scrollY;
+
+    $: if (foodList && scrollY && foodList.scrollTop + foodList.clientHeight * 1.5 > foodList.scrollHeight) {
+        if (show < filteredFoods.length) {
+            show += 10;
+            console.debug(`Show up to ${show} items`);
+        }
+    }
+    
+    function chooseFood(food) {
+        dispatch("chooseFood", { food });
+    }
 </script>
 
-<input type="text" placeholder="Search food ..." bind:value={search} bind:this={field}>
+<input type="text" {placeholder} bind:value={search} bind:this={field}/>
 <div class="counter">{filteredFoods.length} match{filteredFoods.length == 1 ? "" : "es"}</div>
-<div class="food-list">
+<FoodList
+    on:swipeLeft
+    on:swipeRight
+    on:swipeEnd
+    bind:element={foodList}
+    bind:scrollY>
     {#if search && foods}
         {#each filteredFoods as f, i}
+            {#if i < show}
             <div on:click={() => chooseFood(f)}>
-                <FoodCard food={{ ...f, effect: computeEffect(f) }} light={i % 2 == 1}/>
+                <FoodSearchCard food={{ ...f, effect: computeEffect(f) }} light={i % 2 == 1}/>
             </div>
+            {/if}
         {/each}
     {/if}
-</div>
+</FoodList>
 <div class="minus-food" on:click={handleCloseBtn}>
     <svg viewBox="-5 -4 50 50">
         <path
@@ -55,8 +110,13 @@
         ></path>
     </svg>
 </div>
+<div class="keyboard-space"></div>
     
 <style>
+    .keyboard-space {
+        height: 80%;
+    }
+
     input[type="text"] {
         margin-bottom: 0;
         margin-top: 5px;
@@ -78,20 +138,6 @@
 		stroke-linejoin: round;
 		fill: none;
 	}
-
-    .food-list {
-        position: relative;
-        box-sizing: border-box;
-        width: 90%;
-        height: 40%;
-        font-size: 1em;
-        background: #555;
-        box-shadow: 0 0 10px #FFF8;
-        display: flex;
-        flex-direction: column;
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
 
     .counter {
         font-size: 0.9em;

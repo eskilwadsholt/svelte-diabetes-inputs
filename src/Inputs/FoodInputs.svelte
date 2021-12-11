@@ -5,7 +5,7 @@
 </script>
 
 <main>
-    <PageSelector pages={[ MealInput, FoodDBinput ]}/>
+    <PageSelector ID="Food Inputs" pages={[ MealInput, FoodDBinput ]}/>
 </main>
 
 <style>

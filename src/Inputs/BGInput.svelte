@@ -11,6 +11,7 @@
     const getItem = () => {
         const time = new Date();
         const display = formatTime(time);
+        console.debug(time);
         return {
             type: "BG",
             time,
@@ -22,6 +23,7 @@
     $: $latest.canSubmit = /^\d+\.*\d*$/.test(value);
 
     $latest.submit = () => {
+        console.debug(getItem());
         $latest.BG = getItem();
         value = "";
     }
@@ -34,15 +36,15 @@
 
 
 <main>
-    <LogoHeader caption="Blood<br>Sugar">
+    <LogoHeader caption="Blood Sugar">
         <BGlogo thickness="2px"/>
     </LogoHeader>
+    <NumberField {value}>
+        <div slot="unit">
+            <Fraction numerator="mmol" denominator="L"/>
+        </div>
+    </NumberField>
     <Numpad bind:value>
-        <NumberField {value}>
-            <div slot="unit">
-                <Fraction numerator="mmol" denominator="L"/>
-            </div>
-        </NumberField>
     </Numpad>
 </main>
 

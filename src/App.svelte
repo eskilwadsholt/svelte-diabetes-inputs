@@ -12,20 +12,8 @@
 	import Cart from "./Cart/Cart.svelte";
 	import { swipeable } from "./events";
 	import { latest } from "./Stores/stores";
-import Latest from "./Latest.svelte";
-import DownArrow from "./Logos/DownArrow.svelte";
-import UpArrow from "./Logos/UpArrow.svelte";
-
-	const swipeOptions = {
-        minSwipe: 10,
-        target: {
-            up: 120,
-            down: 300,
-            left: 150,
-            right: 350,
-        },
-        ratio: 3,
-    }
+	import DownArrow from "./Logos/DownArrow.svelte";
+	import UpArrow from "./Logos/UpArrow.svelte";
 
 	let menuOpen:boolean = true;
 	let toolActive = -1;
@@ -48,7 +36,7 @@ import UpArrow from "./Logos/UpArrow.svelte";
 		{/if}
 		<Cart/>
 	</div>
-	<div class="bottom" use:swipeable={swipeOptions} on:swipeUp on:swipeEnd>
+	<div class="bottom" use:swipeable on:swipeUp on:swipeEnd>
 		<div class="menu-folder" class:menuOpen>
 			<ToolButton on:clicked={() => SelectTool(4)} highlight={toolActive == 4}>
 				<div slot="logo" class="logo"><NotesLogo/></div>
@@ -107,6 +95,7 @@ import UpArrow from "./Logos/UpArrow.svelte";
 		width: 100%;
 		height: 80px;
 		transition: 200ms;
+		margin-bottom: 8px;
 	}
 
 	.menu-folder.menuOpen {

@@ -1,15 +1,28 @@
 interface SwipeOptions {
     /* Number of pixels before swipe is activated */
-    minSwipe: number;
+    minSwipe?: number;
     /* Targets in pixels for the four swipe directions */
-    target:{
+    target?: {
         up: number;
         down: number;
         left: number;
         right: number
     };
     /* Direction is activated when moving more than ratio times the perpendicular direction */
-    ratio: number;
+    ratio?: number;
+    blocking?: boolean;
+}
+
+const standardOptions:SwipeOptions = {
+    minSwipe: 10,
+    target: {
+        up: 80,
+        down: 80,
+        left: 80,
+        right: 80,
+    },
+    ratio: 3,
+    blocking: true,
 }
 
 interface Point {
@@ -32,7 +45,9 @@ interface SwipeInfo {
     clampedProgress: number;
 }
 
-export function swipeable(node, options:SwipeOptions) {
+export function swipeable(node, options:SwipeOptions = standardOptions) {
+    options = { ...standardOptions, ...options };
+
     // Resuable var
     let touch;
 
@@ -68,7 +83,7 @@ export function swipeable(node, options:SwipeOptions) {
 
     function handleMove(event) {
         event.stopPropagation();
-        event.preventDefault();
+        if (options.blocking) event.preventDefault();
 
         touch = event.touches[0];
 		swipe.dx = touch.pageX - swipe.start.x;
@@ -131,6 +146,7 @@ export function swipeable(node, options:SwipeOptions) {
     }
 
     function handleEnd(event) {
+        console.debug("swipe end - events.ts");
         event.stopPropagation();
 
         swipe.direction = null;

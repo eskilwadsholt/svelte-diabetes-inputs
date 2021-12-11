@@ -12,13 +12,13 @@
         <div class="value carbs">
             <div class="title">Carbs</div>
             <div>
-                {stats.carbs.toFixed(1)}g
+                {stats.carbs.toFixed(0)}g
             </div>
         </div>
         <div class="value cals">
             <div class="title">Cals</div>
             <div>
-                {stats.cals.toFixed(0)}
+                {stats.cals.toFixed(0)}k
             </div>
         </div>
         <div class="value effect">
@@ -45,7 +45,6 @@
     }
 
     .upeffect {
-        color: var(--uparrow);
         display: flex;
         align-items: center;
     }
@@ -54,7 +53,7 @@
         border-radius: 20px;
         width: 70%;
         font-size: 1.3em;
-        padding: 3px 14px;
+        padding: 5px 8px;
         background: #0008;
         box-shadow: 0 0 10px #FFF8;
     }
